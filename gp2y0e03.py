@@ -1,4 +1,3 @@
-import struct
 from  smbus import SMBus
 
 _REGISTER_SHIFT_BIT = 0x35
@@ -9,15 +8,11 @@ class GP2Y0E03:
         self.i2c = i2c
         self.address = address
 
-    def _register8(self, register, value=None):
-        if value is None:
-            return self.i2c.read_byte_data(self.address, register)
-        self.i2c.write_byte(self.address, value)
+    def _register8(self, register, value=None):        
+           return self.i2c.read_byte_data(self.address, register)
 
     def _register16(self, register, value=None):
-        if value is None:
-            data = self.i2c.read_i2c_block_data(self.address, register,2)
-            return data           
+		return self.i2c.read_i2c_block_data(self.address, register,2)         
 
     def read(self, raw=False):
         shift = self._register8(_REGISTER_SHIFT_BIT)
